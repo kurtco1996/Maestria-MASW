@@ -8,8 +8,8 @@
     $maquina = "localhost"; // cambiar por localhost si local o la m�quina que indica ElephantSQL si la nube
     $puerto = "5432";
     $bbdd = "FrigoVIU"; // cambiar por tu bbdd
-    $usuario = "user_viu"; // cambiar por tu usuario
-    $contrasenya = "1234"; // cambiar por tu contrase�a
+    $usuario = "****"; // cambiar por tu usuario
+    $contrasenya = "****"; // cambiar por tu contrase�a
 
     // Usar utf8_encode para que se muestren bien los caracteres con acentos y e�es (codifica un string ISO-8859-1 a UTF-8)
     // Establecer la conexi�n a bbdd PostgreSQL
