@@ -31,6 +31,8 @@ CREATE TABLE CLIENTE(
 
 CREATE TABLE TECNICO(
 	dni character varying(9) NOT NULL,
+	rango character varying(30),
+	fecha_incorporacion date,
 	CONSTRAINT cp_id_tecnico PRIMARY KEY (dni),
 	CONSTRAINT caj_persona FOREIGN KEY (dni)
 	REFERENCES PERSONA(dni)
