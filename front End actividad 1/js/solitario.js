@@ -15,6 +15,14 @@ let carta_size=[70,100]
 
 let cont_movimientos = document.getElementById("contador_movimientos"); 
 let inicial,sobrantes,receptor1,receptor2,receptor3,receptor4,lista_de_tapetes;
+let lista_de_tapetes=[];
+
+// Tiempo
+let cont_tiempo  = document.getElementById("contador_tiempo"); // span cuenta tiempo
+let segundos 	 = 0;    // cuenta de segundos
+let temporizador = null; // manejador del temporizador
+
+/***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
 
 function inicializacion(){
 	if(lista_de_tapetes){
@@ -145,13 +153,6 @@ function aplicar_estilo_inicial(ev){
 	}
 }
 
-// Tiempo
-let cont_tiempo  = document.getElementById("contador_tiempo"); // span cuenta tiempo
-let segundos 	 = 0;    // cuenta de segundos
-let temporizador = null; // manejador del temporizador
-
-/***** FIN DECLARACIÓN DE VARIABLES GLOBALES *****/
-
 function actualizar(id_tapete_final,id_carta){
 	//identificar donde estaba la carta previamente
 	id_tapete_origen=document.getElementById(id_carta).parentElement.id;
@@ -206,8 +207,26 @@ function validar_fin_de_baraja(){
 }
 
 function logica_juego(tapete_final, tapete_origen,id_carta){
-	carta=document.getElementById(id_carta)
+	function color_palo(palo){
+		switch(palo){
+			case 'viu':
+			case 'cua':
+				return 'rojo';
+			default:
+				return 'negro';
+		}
+	}
+	function carta_descartada(tapete_origen, tapete_final){
+		return tapete_origen.nombre=='inicial' && tapete_final.nombre=='sobrantes';
+	}
+	function tapete_origen_no_valido(tapete_origen){
+		return !(tapete_origen.nombre=='inicial' || tapete_origen.nombre=='sobrantes');
+	}
+	function destino_es_receptor(tapete_final){
+		return tapete_final.nombre.startsWith('receptor');
+	}
 
+	carta=document.getElementById(id_carta)
 
 	if(carta_descartada(tapete_origen, tapete_final)){
 		return true;
@@ -244,6 +263,9 @@ function logica_juego(tapete_final, tapete_origen,id_carta){
 	}
 }
 
+// Obtiene el color del palo a partir del nombre del palo
+
+
 // El juego arranca ya al cargar la página: no se espera a reiniciar
 /*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 
@@ -275,9 +297,9 @@ function comenzar_juego(){
 			lista_de_tapetes[0].mazo.push(imagen);
 		}
 	}
-	for(i in lista_de_tapetes){
-		set_contador(lista_de_tapetes[i].contador, lista_de_tapetes[i].mazo.length);
-	}
+for(i in lista_de_tapetes){
+	set_contador(lista_de_tapetes[i].contador, lista_de_tapetes[i].mazo.length);
+}
 	
 	// Barajar
 	lista_de_tapetes[0].mazo = barajar(lista_de_tapetes[0].mazo);
@@ -321,7 +343,6 @@ document.getElementById('reset').onclick = function(){comenzar_juego()};
 */
 
 function arrancar_tiempo(){
-	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! **/
 	if (temporizador) clearInterval(temporizador); //clearInterval quita el interval
     let hms = function (){
 			let seg = Math.trunc( segundos % 60 );
@@ -356,7 +377,7 @@ function arrancar_tiempo(){
 */
 function barajar(mazo) {
 	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! OK **/
-	let pos_alterna; /* VAR O LET ????????????????????????????? */
+	let pos_alterna; 
 	let cambio;
 	if(mazo.length <= 1){
 		return mazo;
@@ -453,25 +474,4 @@ function set_contador(contador, valor) {
 } // set_contador
 
 
-// Obtiene el color del palo a partir del nombre del palo
-function color_palo(palo){
-	switch(palo){
-		case 'viu':
-		case 'cua':
-			return 'rojo';
-		default:
-			return 'negro';
-	}
-}
 
-function carta_descartada(tapete_origen, tapete_final){
-	return tapete_origen.nombre=='inicial' && tapete_final.nombre=='sobrantes';
-}
-
-function tapete_origen_no_valido(tapete_origen){
-	return !(tapete_origen.nombre=='inicial' || tapete_origen.nombre=='sobrantes');
-}
-
-function destino_es_receptor(tapete_final){
-	return tapete_final.nombre.startsWith('receptor');
-}
