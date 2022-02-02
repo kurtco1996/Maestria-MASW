@@ -409,6 +409,9 @@ function actualizar_mazo_HTML(objeto) {
 		if(p_z==objeto.mazo.length-1){
 			document.getElementById(mazo_item.id).ondragstart=drag;
 		}
+		else{
+			document.getElementById(mazo_item.id).ondragstart=null;
+		}
 
 		p_x+=1;
 		p_y+=1;
