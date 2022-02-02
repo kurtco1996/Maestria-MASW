@@ -99,7 +99,7 @@ function drop(ev) {
 
 	id_tapete=es_id_tapete(ev.target.id) //Comprobar si este id es un tapete
 	//ev.target.appendChild(carta);//Podriamos quitar esto y añadir una funcion de actualizar barajas
-	applyInitialStyle(ev);
+	aplicar_estilo_inicial(ev);
 	actualizar(id_tapete,id_carta)
 }
 
@@ -129,10 +129,10 @@ function dragover(ev){
 }
 
 function dragleave(ev){
-	applyInitialStyle(ev);
+	aplicar_estilo_inicial(ev);
 }
 
-function applyInitialStyle(ev){
+function aplicar_estilo_inicial(ev){
 	for(const tapeteItem of lista_de_tapetes){
 		tapeteItem.tapete.style.backgroundColor=tapeteItem.color;
 		for(const mazoItem of tapeteItem.mazo){
@@ -162,7 +162,7 @@ function actualizar(id_tapete_final,id_carta){
 		}
 	}
 
-	//Comprobar si es posible el movimiento -> FALTA
+	//Comprobar si es posible el movimiento
 	if (logica_juego(tapeteFinal,tapeteOrigen,id_carta)){
 		//actualizar listas
 		
@@ -179,11 +179,11 @@ function actualizar(id_tapete_final,id_carta){
 		actualizar_mazo_HTML(tapeteFinal);
 
 		inc_contador(cont_movimientos);
-		juego_terminado();
+		validar_fin_de_baraja();
 	}
 }
 
-function juego_terminado(){
+function validar_fin_de_baraja(){
 	//Para que el juego termine, no deben de quedar cartas en el tapete inicial y en el tapete de sobrantes
 	if(lista_de_tapetes[0].mazo.length==0){
 		if(lista_de_tapetes[1].mazo.length==0){
@@ -200,45 +200,43 @@ function juego_terminado(){
 	}
 }
 
-function logica_juego(tapete_final,tapete_origen,id_carta){
+function logica_juego(tapete_final, tapete_origen,id_carta){
 	carta=document.getElementById(id_carta)
-	//Movimientos posible:
-	//origen: inicial | final: sobrante
-	if(tapete_origen.nombre=='inicial' && tapete_final.nombre=='sobrantes'){
+
+
+	if(carta_descartada(tapete_origen, tapete_final)){
 		return true;
 	}
 
-	//valida que los tapetes de origen y destino sean de tipo inicial o obrantes
-    if(!(tapete_origen.nombre=='inicial' || tapete_origen.nombre=='sobrantes')){
+    if(tapete_origen_no_valido(tapete_origen)){
 		return false;
 	}
 
-	//valida que los tapetes de destino sean de tipo receptor
-	if(!tapete_final.nombre.startsWith('receptor')){
+	if (destino_es_receptor(tapete_final)) {
+		var paloOrigen = carta.getAttribute('data-palo');
+		var colorPaloOrigen = color_palo(paloOrigen);
+		var numeroCartaOrigen = carta.getAttribute('data-numero');
+		var colorPaloDestino = tapete_final.color_palo;
+		var numeroCartaDestino = tapete_final.numero;
+
+		if (colorPaloDestino != '' && colorPaloOrigen == colorPaloDestino) {
+			return false;
+		}
+
+		if (numeroCartaOrigen != numeroCartaDestino) {
+			return false;
+		}
+
+		if (numeroCartaDestino > 0) {
+			tapete_final.numero -= 1;
+		}
+
+		tapete_final.palo = paloOrigen;
+		tapete_final.color_palo = colorPaloOrigen;
+		return true
+	} else {
 		return false;
 	}
-	
-	var paloOrigen = carta.getAttribute('data-palo');
-	var colorPaloOrigen = color_palo(paloOrigen);
-	var numeroCartaOrigen = carta.getAttribute('data-numero');
-	var colorPaloDestino = tapete_final.color_palo;
-	var numeroCartaDestino = tapete_final.numero;
-
-	if(colorPaloDestino != '' && colorPaloOrigen == colorPaloDestino){
-		return false;
-	}
-
-	if(numeroCartaOrigen != numeroCartaDestino){
-		return false;
-	}
-
-	if(numeroCartaDestino > 0){
-		tapete_final.numero-=1;
-	}
-
-	tapete_final.palo=paloOrigen;
-	tapete_final.color_palo = colorPaloOrigen;
-	return true
 }
 
 // El juego arranca ya al cargar la página: no se espera a reiniciar
@@ -355,6 +353,9 @@ function barajar(mazo) {
 	/*** !!!!!!!!!!!!!!!!!!! CODIGO !!!!!!!!!!!!!!!!!!!! OK **/
 	let pos_alterna; /* VAR O LET ????????????????????????????? */
 	let cambio;
+	if(mazo.length <= 1){
+		return mazo;
+	}
 	for(let pos in mazo){
 		do{
 			pos_alterna = Math.floor(Math.random()*mazo.length);
@@ -379,29 +380,29 @@ function actualizar_mazo_HTML(objeto) {
 	let p_x=0;
 	let p_y=0;
 	let p_z=0;
-	for(let i in objeto.mazo){
-		objeto.tapete.appendChild(objeto.mazo[i]);
-		document.getElementById(objeto.mazo[i].id).style.position='absolute';
+	for(const mazo_item of objeto.mazo){
+		objeto.tapete.appendChild(mazo_item);
+		document.getElementById(mazo_item.id).style.position='absolute';
 		if(objeto.nombre=='inicial'){
-			document.getElementById(objeto.mazo[i].id).style.left=p_x*paso+'px';
-			document.getElementById(objeto.mazo[i].id).style.top=p_y*paso+'px';
+			document.getElementById(mazo_item.id).style.left=p_x*paso+'px';
+			document.getElementById(mazo_item.id).style.top=p_y*paso+'px';
 		}
 		else{
 			if(objeto.nombre!='sobrantes'){
-				document.getElementById(objeto.mazo[i].id).style.left='0px';
-				document.getElementById(objeto.mazo[i].id).style.top=p_y*paso+'px';
+				document.getElementById(mazo_item.id).style.left='0px';
+				document.getElementById(mazo_item.id).style.top=p_y*paso+'px';
 			}else{
 				
-				document.getElementById(objeto.mazo[i].id).style.left=p_x+'px';
-				document.getElementById(objeto.mazo[i].id).style.top='0px';
+				document.getElementById(mazo_item.id).style.left=p_x+'px';
+				document.getElementById(mazo_item.id).style.top='0px';
 			}
 		}
 		
 
-		document.getElementById(objeto.mazo[i].id).style.zIndex=p_z;
-		document.getElementById(objeto.mazo[i].id).style.backgroundColor='';
-		document.getElementById(objeto.mazo[i].id).className='carta';
-		document.getElementById(objeto.mazo[i].id).ondragstart=drag; //Cambiar a si es el ultimo de la baraja inicial o la de restantes pues que sea dragable si no, no
+		document.getElementById(mazo_item.id).style.zIndex=p_z;
+		document.getElementById(mazo_item.id).style.backgroundColor='';
+		document.getElementById(mazo_item.id).className='carta';
+		document.getElementById(mazo_item.id).ondragstart=drag; //Cambiar a si es el ultimo de la baraja inicial o la de restantes pues que sea dragable si no, no
 
 		p_x+=1;
 		p_y+=1;
@@ -410,8 +411,8 @@ function actualizar_mazo_HTML(objeto) {
 } // actualizar_mazo_HTML
 
 function borrar_tapete(objeto){
-	for(let i in objeto.mazo){
-		objeto.tapete.removeChild(document.getElementById(objeto.mazo[i].id));
+	for(const mazo_item of objeto.mazo){
+		objeto.tapete.removeChild(document.getElementById(mazo_item.id));
 	}
 }
 
@@ -440,6 +441,7 @@ function set_contador(contador, valor) {
 	contador.innerHTML=valor;
 } // set_contador
 
+
 // Obtiene el color del palo a partir del nombre del palo
 function color_palo(palo){
 	switch(palo){
@@ -449,4 +451,16 @@ function color_palo(palo){
 		default:
 			return 'negro';
 	}
+}
+
+function carta_descartada(tapete_origen, tapete_final){
+	return tapete_origen.nombre=='inicial' && tapete_final.nombre=='sobrantes';
+}
+
+function tapete_origen_no_valido(tapete_origen){
+	return !(tapete_origen.nombre=='inicial' || tapete_origen.nombre=='sobrantes');
+}
+
+function destino_es_receptor(tapete_final){
+	return tapete_final.nombre.startsWith('receptor');
 }
