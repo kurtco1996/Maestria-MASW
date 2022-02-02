@@ -17,9 +17,12 @@ let cont_movimientos = document.getElementById("contador_movimientos");
 let inicial,sobrantes,receptor1,receptor2,receptor3,receptor4,lista_de_tapetes;
 
 function inicializacion(){
-	for(i in lista_de_tapetes){
-		borrar_tapete(lista_de_tapetes[i]);
+	if(lista_de_tapetes){
+		for(i in lista_de_tapetes){
+			borrar_tapete(lista_de_tapetes[i]);
+		}
 	}
+
 	inicial = {
 		nombre: 'inicial',
 		tapete: document.getElementById("inicial"),
