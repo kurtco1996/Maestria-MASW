@@ -15,7 +15,6 @@ let carta_size=[70,100]
 
 let cont_movimientos = document.getElementById("contador_movimientos"); 
 let inicial,sobrantes,receptor1,receptor2,receptor3,receptor4,lista_de_tapetes;
-let lista_de_tapetes=[];
 
 // Tiempo
 let cont_tiempo  = document.getElementById("contador_tiempo"); // span cuenta tiempo
