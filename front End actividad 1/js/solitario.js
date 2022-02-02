@@ -402,8 +402,8 @@ function actualizar_mazo_HTML(objeto) {
 		
 		document.getElementById(mazo_item.id).style.zIndex=p_z;
 		document.getElementById(mazo_item.id).style.backgroundColor='';
+		document.getElementById(mazo_item.id).className='carta';
 		if(p_z==objeto.mazo.length-1){
-			document.getElementById(mazo_item.id).className='carta';
 			document.getElementById(mazo_item.id).ondragstart=drag;
 		}
 
