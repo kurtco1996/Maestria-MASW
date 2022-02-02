@@ -193,6 +193,8 @@ function validar_fin_de_baraja(){
 		}else{
 			//Sacar las cartas de sobrantes, barajarlas y volver a llevarlas al tapete inicial:
 			lista_de_tapetes[0].mazo=barajar(lista_de_tapetes[1].mazo);
+			set_contador(lista_de_tapetes[0].contador,lista_de_tapetes[0].mazo.length);
+
 			lista_de_tapetes[1].mazo=[];
 			borrar_tapete(lista_de_tapetes[1]);
 			actualizar_mazo_HTML(lista_de_tapetes[0]);
@@ -414,6 +416,8 @@ function borrar_tapete(objeto){
 	for(const mazo_item of objeto.mazo){
 		objeto.tapete.removeChild(document.getElementById(mazo_item.id));
 	}
+	set_contador(objeto.contador,0);
+
 }
 
 /**
