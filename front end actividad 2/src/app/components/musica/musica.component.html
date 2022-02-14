@@ -1,0 +1,23 @@
+
+<div>
+    <h1>Musica VIU</h1>
+    <audio id="audioPlayer" controls></audio>
+    <p *ngIf="cancionReproducida">{{cancionReproducida.artista}} - <{{cancionReproducida.titulo}}/p>
+</div>
+
+<div *ngFor="let disco of discos">
+    <div *ngIf="disco.anyo>1975">
+    <h2>{{disco.titulo}}</h2>
+    <h2>{{disco.artista | uppercase}}</h2>
+    <h2 [ngClass]="{
+        'yelow': disco.anyo>1985,
+        'green': disco.anyo<=1985}">{{disco.anyo}}</h2>
+    <img src={{disco.imagen}} alt={{disco.title}}>
+    <div *ngFor="let cancion of disco.canciones">
+        <app-cancion [cancion]=cancion (cancionAReproducir)="reproducirCancion(cancion)"></app-cancion>
+        <p>{{cancion.pista}}. {{cancion.titulo}}</p>
+    </div>
+    <hr>
+</div>
+</div>>
+

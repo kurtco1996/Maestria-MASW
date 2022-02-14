@@ -1,0 +1,7 @@
+<h1>Bienvenidos a la pagina multimedia {{titulo}} </h1>
+<p>Has pulsado el botn {{pulsaciones}}</p>
+<button (click)=pulsar()>Pulsame</button>
+<div style="margin-top: 5px;" *ngIf="pulsaciones>0">
+    <button (click)=reset()>Reset</button>
+    <p>HAs pulsado el boton {{pulsaciones}}</p>
+</div>
