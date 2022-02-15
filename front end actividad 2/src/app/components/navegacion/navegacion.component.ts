@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { appRoutes } from 'src/app/app-routing';
 
 @Component({
   selector: 'app-navegacion',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navegacion.component.css']
 })
 export class NavegacionComponent implements OnInit {
+  rutas=appRoutes; //TENEMOS LAS RUTAS PARA UN FOR
 
   constructor() { }
 

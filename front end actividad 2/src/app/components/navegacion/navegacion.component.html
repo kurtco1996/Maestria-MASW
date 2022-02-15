@@ -1,12 +1,33 @@
-
-		<nav class="menu_principal">
-		    <ul>
-		        <li [routerLinkActive]="['seleccionado']" [routerLinkActiveOptions]="{exact:true}"><a [routerLink]="['/']">Inicio</a></li><!--
-		     --><li [routerLinkActive]="['seleccionado']"><a [routerLink]="['/musica']">Música</a></li><!--
-		     --><li [routerLinkActive]="['seleccionado']"><a [routerLink]="['/cine']">Cine</a></li><!--
-		     --><li [routerLinkActive]="['seleccionado']"><a [routerLink]="['/libros']">Libros</a></li><!--
-		     --><li [routerLinkActive]="['seleccionado']"><a [routerLink]="['/podcasts']">Podcasts</a></li><!--
-		     --><li [routerLinkActive]="['seleccionado']"><a [routerLink]="['/videojuegos']">Videojuegos</a></li>
-		    </ul>
-		</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<a class="navbar-brand" href="#">Multimedia Angular</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	  <span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			
+			<li class="nav-item" [routerLinkActive]="['seleccionado']" [routerLinkActiveOptions]="{exact:true}">
+				<a class="nav-link" [routerLink]="['/']">Inicio</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['seleccionado']">
+				<a class="nav-link" [routerLink]="['/musica']">Música</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['seleccionado']">
+				<a class="nav-link" [routerLink]="['/cine']">Cine</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['seleccionado']">
+				<a class="nav-link" [routerLink]="['/libros']">Libros</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['seleccionado']">
+				<a class="nav-link" [routerLink]="['/podcasts']">Podcasts</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['seleccionado']">
+				<a class="nav-link" [routerLink]="['/videojuegos']">Videojuegos</a>
+			</li>
+			<li class="nav-item" [routerLinkActive]="['seleccionado']">
+				<a class="nav-link" [routerLink]="['/videos']">Videos</a>
+			</li>
+		</ul>
+	</div>
+</nav>
 
