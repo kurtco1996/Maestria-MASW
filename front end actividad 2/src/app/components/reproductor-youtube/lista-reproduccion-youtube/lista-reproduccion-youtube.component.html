@@ -1,0 +1,21 @@
+<div class="container">
+    <p>La lista de youtube</p>
+    <div class="row">
+        <div class="col-md-8" style="background-color: aqua;">
+            <h4>Reproductor:{{listaVideos[videoSeleccionado].getTitulo()}}</h4>
+
+            <app-reproductor-youtube [url]="listaVideos[videoSeleccionado].getUrl()"></app-reproductor-youtube>
+        </div>
+        <div class="col-md-4" style="background-color: yellow;">
+            <div class="overflow-auto" style="max-height: 400px;">
+                <h4>Lista:</h4>
+                <div class="list-group">
+                    <div class="list-group-item list-group-item-action" style="cursor: pointer;" *ngFor="let video of listaVideos; let i = index " (click)="seleccionarVideo(i)">
+                        {{video.getTitulo()}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

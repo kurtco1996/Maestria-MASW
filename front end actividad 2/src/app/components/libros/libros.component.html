@@ -1,1 +1,11 @@
-<p>libros works!</p>
+<p>LIBROS: Arreglar lo de try del buscador !!!</p>
+
+<form>
+    <input type="text">
+    <input type="button" name="Boton" value="Buscar" (click)="buscar('nada')">
+</form>
+<div class="container">
+    <div *ngFor="let libro of libros">
+        <app-libro [titulo]="libro.titulo" [autor]="libro.autor"></app-libro>
+    </div>
+</div>
