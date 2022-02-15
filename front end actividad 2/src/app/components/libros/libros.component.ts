@@ -21,7 +21,8 @@ export class LibrosComponent implements OnInit {
 
   constructor(private servicioLibros:ServicioLibros){ }
   buscar(busqueda:string){
-    this.servicioLibros.buscarLibros('harry').subscribe((data:any) => {
+    console.log(busqueda);
+    this.servicioLibros.buscarLibros(busqueda).subscribe((data:any) => {
       var i=0;
       var extra=0;
       while(i < data.totalItems && i< this.numero_max+extra){

@@ -1,8 +1,8 @@
 <p>LIBROS: Arreglar lo de try del buscador !!!</p>
 
 <form>
-    <input type="text">
-    <input type="button" name="Boton" value="Buscar" (click)="buscar('nada')">
+    <input type="text" #busqueda>
+    <input type="button" name="Boton" value="Buscar" (click)="buscar(busqueda.value)">
 </form>
 <div class="container">
     <div *ngFor="let libro of libros">
