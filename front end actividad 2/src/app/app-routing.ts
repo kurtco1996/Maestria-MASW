@@ -7,8 +7,9 @@ import { CineComponent } from "./components/cine/cine.component";
 import { LibrosComponent } from "./components/libros/libros.component";
 import { ErrorComponent } from "./components/error/error.component";
 import { PodcastsComponent } from "./components/podcasts/podcasts.component";
+import { VideosComponent } from "./components/videos/videos.component";
 
-const appRoutes: Routes= [
+export const appRoutes: Routes= [
     {path: '', component: InicioComponent},
     {path: 'inicio', component: InicioComponent},
     {path: 'musica', component: MusicaComponent},
@@ -16,7 +17,9 @@ const appRoutes: Routes= [
     {path: 'cine/:genero', component: CineComponent},
     {path: 'libros', component: LibrosComponent} ,
     {path: 'podcasts', component: PodcastsComponent},
+    {path: 'videos', component: VideosComponent},
     {path: '**', component: ErrorComponent}
 ];
 
 export const routing: ModuleWithProviders<Object> = RouterModule.forRoot(appRoutes);
+
